@@ -1,0 +1,81 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Task 1: Load and Explore the Dataset
+try:
+    # Load dataset (Replace 'your_dataset.csv' with the actual dataset file name)
+    df = pd.read_csv('your_dataset.csv')
+    
+    # Display first few rows
+    print("First 5 rows of dataset:")
+    print(df.head())
+    
+    # Check data types and missing values
+    print("\nDataset Info:")
+    print(df.info())
+    print("\nMissing Values:")
+    print(df.isnull().sum())
+    
+    # Handle missing values (Fill with mean or drop them)
+    df = df.fillna(df.mean())
+    
+except FileNotFoundError:
+    print("Error: Dataset file not found. Make sure 'your_dataset.csv' is in the correct path.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+# Task 2: Basic Data Analysis
+print("\nBasic Statistics:")
+print(df.describe())
+
+# Group by categorical column and compute mean (Modify 'CategoryColumn' and 'NumericColumn')
+if 'CategoryColumn' in df.columns and 'NumericColumn' in df.columns:
+    grouped = df.groupby('CategoryColumn')['NumericColumn'].mean()
+    print("\nGrouped Mean Values:")
+    print(grouped)
+else:
+    print("\nCategoryColumn or NumericColumn not found. Modify column names accordingly.")
+
+# Task 3: Data Visualization
+sns.set(style="darkgrid")
+
+# Line Chart (Replace 'DateColumn' and 'NumericColumn')
+if 'DateColumn' in df.columns and 'NumericColumn' in df.columns:
+    plt.figure(figsize=(8, 5))
+    sns.lineplot(x='DateColumn', y='NumericColumn', data=df)
+    plt.title('Trend Over Time')
+    plt.xlabel('Date')
+    plt.ylabel('Value')
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Bar Chart
+if 'CategoryColumn' in df.columns and 'NumericColumn' in df.columns:
+    plt.figure(figsize=(8, 5))
+    sns.barplot(x='CategoryColumn', y='NumericColumn', data=df)
+    plt.title('Comparison Across Categories')
+    plt.xlabel('Category')
+    plt.ylabel('Average Value')
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Histogram
+if 'NumericColumn' in df.columns:
+    plt.figure(figsize=(8, 5))
+    sns.histplot(df['NumericColumn'], bins=20, kde=True)
+    plt.title('Distribution of NumericColumn')
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.show()
+
+# Scatter Plot (Replace 'XColumn' and 'YColumn')
+if 'XColumn' in df.columns and 'YColumn' in df.columns:
+    plt.figure(figsize=(8, 5))
+    sns.scatterplot(x='XColumn', y='YColumn', data=df)
+    plt.title('Relationship Between XColumn and YColumn')
+    plt.xlabel('XColumn')
+    plt.ylabel('YColumn')
+    plt.show()
+
+print("\nAssignment Completed Successfully! Make sure to replace placeholder column names with actual dataset columns.")
